@@ -3,3 +3,8 @@
 body {
     background-color: lightgray;
 }
+
+form {
+    width: 60%;
+    margin: 0 auto;
+}
