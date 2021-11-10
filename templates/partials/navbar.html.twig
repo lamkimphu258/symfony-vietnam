@@ -7,26 +7,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if not is_granted('ROLE_USER') %}
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.get('_route') == 'app_about' %} active {% endif %}" aria-current="page" href="{{ path('app_about') }}">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.get('_route') == 'app_contributors' %} active {% endif %}" aria-current="page" href="{{ path('app_contributors') }}">Contributors</a>
                 </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
+                {% if not is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a class="nav-link {% if app.request.get('_route') == 'app_login' %} active {% endif %}" aria-current="page" href="#">Sign In</a>
+                    <a class="nav-link {% if app.request.get('_route') == 'app_login' %} active {% endif %}" aria-current="page" href="{{ path('app_login') }}">Sign In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.get('_route') == 'app_register' %} active {% endif %}" aria-current="page" href="{{ path('app_register') }}">Sign Up</a>
                 </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.get('_route') == 'app_profile' %} active {% endif %}" aria-current="page" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Logout</a>
+                    <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Logout</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>

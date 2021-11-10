@@ -3,5 +3,9 @@
 {% block title %}Homepage{% endblock %}
 
 {% block body %}
-<h1 class="text-center">Landing Page</h1>
+    {% if not is_granted('ROLE_USER') %}
+        <h1 class="text-center">Landing Page</h1>
+    {% else %}
+        <h1 class="text-center">Page for authenticated user</h1>
+    {% endif %}
 {% endblock %}
