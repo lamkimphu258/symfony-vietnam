@@ -1,11 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
-    {% if not is_granted('ROLE_USER') %}
-        <h1 class="text-center">Landing Page</h1>
-    {% else %}
-        <h1 class="text-center">Page for authenticated user</h1>
-    {% endif %}
+    <h1 class="text-center">Landing Page</h1>
 {% endblock %}
