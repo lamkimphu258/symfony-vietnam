@@ -2,29 +2,29 @@
 
 namespace App\Entity;
 
+use App\Repository\EnrollLessonRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\EnrollCourseRepository;
 
 /**
- * @ORM\Entity(repositoryClass=EnrollCourseRepository::class)
- * @ORM\Table(name="enroll_course" )
+ * @ORM\Entity(repositoryClass=EnrollLessonRepository::class)
+ * @ORM\Table(name="enroll_lesson" )
  */
-class EnrollCourse
+class EnrollLesson
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessons")
      * @ORM\JoinColumn(name="trainee_id", referencedColumnName="id")
      */
     private User $trainee;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="trainees")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lesson", inversedBy="trainees")
+     * @ORM\JoinColumn(name="lesson_id", referencedColumnName="id")
      */
-    private Course $course;
+    private Lesson $lesson;
 
     /**
      * @ORM\Column(name="finished_at", type="datetime_immutable", nullable=true)
@@ -33,10 +33,10 @@ class EnrollCourse
 
     public function __construct(
         User $trainee,
-        Course $course
+        Lesson $lesson
     ) {
         $this->trainee = $trainee;
-        $this->course = $course;
+        $this->lesson = $lesson;
         $this->finishedAt = null;
     }
 
@@ -50,9 +50,9 @@ class EnrollCourse
         return $this->trainee;
     }
 
-    public function getCourse(): Course
+    public function getLesson(): Lesson
     {
-        return $this->course;
+        return $this->lesson;
     }
 
     public function getFinishedAt(): ?DateTimeImmutable
@@ -60,7 +60,7 @@ class EnrollCourse
         return $this->finishedAt;
     }
 
-    public function finishCourse()
+    public function finishLesson()
     {
         $this->finishedAt = new DateTimeImmutable();
     }

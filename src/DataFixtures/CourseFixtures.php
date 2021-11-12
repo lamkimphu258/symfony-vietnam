@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class CourseFixtures extends Fixture
 {
-    protected const NUMBER_OF_COURSES = 100;
+    protected const NUMBER_OF_COURSES = 10;
 
     public function load(ObjectManager $manager): void
     {

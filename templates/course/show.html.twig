@@ -3,5 +3,21 @@
 {% block title %}Course Show{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">{{ courseName }}</h1>
+    <h1 class="text-center">{{ course.name }}</h1>
+    <div class="text-start">
+        {% for index, enrollLesson in enrollLessons %}
+            <p>
+                {{ index+1 }}.
+                <span>
+                    {% set lesson = enrollLesson.lesson %}
+{#                    <a href="{{ path('app_lesson_show', {'lessonSlug': lesson.slug}) }}">#}
+                        {{ lesson.title }}
+{#                    </a>#}
+                    {% if enrollLesson.finishedAt is not null %}
+                        <i class="fas fa-check-square ms-2"></i>
+                    {% endif %}
+                </span>
+            </p>
+        {% endfor %}
+    </div>
 {% endblock %}

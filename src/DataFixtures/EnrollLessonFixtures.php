@@ -2,38 +2,38 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Course;
-use App\Entity\EnrollCourse;
+use App\Entity\EnrollLesson;
+use App\Entity\Lesson;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class EnrollCourseFixtures extends Fixture implements DependentFixtureInterface
+class EnrollLessonFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $users = $manager->getRepository(User::class)->findAll();
-        $courses = $manager->getRepository(Course::class)->findAll();
+        $lessons = $manager->getRepository(Lesson::class)->findAll();
 
         foreach ($users as $user) {
-            foreach ($courses as $course) {
-                $enrollCourse = new EnrollCourse($user, $course);
+            foreach ($lessons as $lesson) {
+                $enrollLesson = new EnrollLesson($user, $lesson);
                 if (rand(min: 0, max: 1)) {
-                    $enrollCourse->finishCourse();
+                    $enrollLesson->finishLesson();
                 }
-                $manager->persist($enrollCourse);
+                $manager->persist($enrollLesson);
             }
         }
 
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,
-            CourseFixtures::class
+            LessonFixtures::class
         ];
     }
 }
