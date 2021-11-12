@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lesson Show{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_course_show', {'courseSlug':course.slug}) }}">Back to lesson list</a>
+    <h1 class="text-center">{{ lesson.title }}</h1>
+    {{ lesson.content }}
+    <h1 class="text-center">Question</h1>
+{% endblock %}

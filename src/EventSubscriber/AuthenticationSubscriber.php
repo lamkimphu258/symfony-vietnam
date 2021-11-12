@@ -65,7 +65,8 @@ class AuthenticationSubscriber implements EventSubscriberInterface
                 !(
                     $controller instanceof GeneralController ||
                     $controllerRoute === 'login' ||
-                    $controllerRoute === 'register'
+                    $controllerRoute === 'register' ||
+                    $this->isProfiler($event)
                 )
             ) {
                 $event->setController(function () {
@@ -74,5 +75,12 @@ class AuthenticationSubscriber implements EventSubscriberInterface
                 });
             }
         }
+    }
+
+    private function isProfiler(ControllerEvent $event): bool
+    {
+        return
+            str_contains($event->getRequest()->getPathInfo(), '_profiler') ||
+            str_contains($event->getRequest()->getPathInfo(), '_wdt');
     }
 }

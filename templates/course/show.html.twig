@@ -3,6 +3,7 @@
 {% block title %}Course Show{% endblock %}
 
 {% block body %}
+    <a href="{{ path('app_course_index') }}">Back to course list</a>
     <h1 class="text-center">{{ course.name }}</h1>
     <div class="text-start">
         {% for index, enrollLesson in enrollLessons %}
@@ -10,9 +11,9 @@
                 {{ index+1 }}.
                 <span>
                     {% set lesson = enrollLesson.lesson %}
-{#                    <a href="{{ path('app_lesson_show', {'lessonSlug': lesson.slug}) }}">#}
+                    <a href="{{ path('app_lesson_show', {'courseSlug': course.slug, 'lessonSlug': lesson.slug}) }}">
                         {{ lesson.title }}
-{#                    </a>#}
+                    </a>
                     {% if enrollLesson.finishedAt is not null %}
                         <i class="fas fa-check-square ms-2"></i>
                     {% endif %}
