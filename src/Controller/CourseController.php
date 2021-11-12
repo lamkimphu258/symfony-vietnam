@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CourseRepository;
 use App\Repository\EnrollCourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,16 @@ class CourseController extends AbstractController
 
         return $this->render('course/index.html.twig', [
             'enrollCourses' => $enrollCourses,
+        ]);
+    }
+
+    #[Route('/courses/{courseSlug}', name: 'app_course_show')]
+    public function show(CourseRepository $courseRepository, string $courseSlug): Response
+    {
+        $courseName = $courseRepository->findOneBySlug($courseSlug)->getName();
+
+        return $this->render('course/show.html.twig', [
+            'courseName' => $courseName
         ]);
     }
 }
