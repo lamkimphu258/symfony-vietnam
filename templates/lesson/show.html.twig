@@ -7,4 +7,13 @@
     <h1 class="text-center">{{ lesson.title }}</h1>
     {{ lesson.content }}
     <h1 class="text-center">Question</h1>
+    <form action="">
+        {% for index, question in questions %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">
+                    {{ index+1 }}.{{ question.question }}
+                </label>
+            </div>
+        {% endfor %}
+    </form>
 {% endblock %}

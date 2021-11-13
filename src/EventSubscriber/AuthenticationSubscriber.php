@@ -79,8 +79,9 @@ class AuthenticationSubscriber implements EventSubscriberInterface
 
     private function isProfiler(ControllerEvent $event): bool
     {
-        return
-            str_contains($event->getRequest()->getPathInfo(), '_profiler') ||
-            str_contains($event->getRequest()->getPathInfo(), '_wdt');
+        $pathInfo = $event->getRequest()->getPathInfo();
+        return str_contains($pathInfo, '_profiler') ||
+            str_contains($pathInfo, '_wdt') ||
+            str_contains($pathInfo, '_fragment');
     }
 }
