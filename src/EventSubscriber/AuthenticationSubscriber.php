@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Controller\GeneralController;
+use App\Controller\SecurityController;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -40,7 +41,7 @@ class AuthenticationSubscriber implements EventSubscriberInterface
         if ($this->container->get('security.token_storage')->getToken()) {
             if (
                 $controller instanceof GeneralController ||
-                $controllerRoute === 'login' ||
+                ($controllerRoute === 'login' && $controller instanceof SecurityController) ||
                 $controllerRoute === 'register'
             ) {
                 $event->setController(function () {
@@ -66,7 +67,8 @@ class AuthenticationSubscriber implements EventSubscriberInterface
                     $controller instanceof GeneralController ||
                     $controllerRoute === 'login' ||
                     $controllerRoute === 'register' ||
-                    $this->isProfiler($event)
+                    $this->isProfiler($event) ||
+                    $controllerRoute !== 'cms'
                 )
             ) {
                 $event->setController(function () {
