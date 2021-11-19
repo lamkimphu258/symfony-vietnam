@@ -54,6 +54,11 @@ class Lesson
      */
     private $questions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EnrollLesson", mappedBy="lesson")
+     */
+    private Collection $trainees;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();

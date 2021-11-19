@@ -46,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $courses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EnrollLesson", mappedBy="trainee")
+     */
+    private Collection $lessons;
+
     public function getId(): string
     {
         return $this->id;

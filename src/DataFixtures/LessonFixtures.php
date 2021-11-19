@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class LessonFixtures extends Fixture implements DependentFixtureInterface
 {
-    protected const NUMBER_OF_LESSONS = 10;
+    protected const NUMBER_OF_LESSONS = 3;
 
     public function load(ObjectManager $manager): void
     {
