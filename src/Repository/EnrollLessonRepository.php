@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Course;
 use App\Entity\EnrollLesson;
+use App\Entity\LessonStatus;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,9 +30,11 @@ class EnrollLessonRepository extends ServiceEntityRepository
             ->leftJoin('l.course', 'c')
             ->andWhere('c.slug = :courseSlug')
             ->andWhere('t.email = :traineeEmail')
+            ->andWhere('l.status = :status')
             ->setParameters([
                 'courseSlug' => $course->getSlug(),
                 'traineeEmail' => $trainee->getEmail(),
+                'status' => LessonStatus::PUBLISHED,
             ])
             ->getQuery()
             ->getResult();

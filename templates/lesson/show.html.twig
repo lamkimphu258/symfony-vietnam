@@ -18,9 +18,9 @@
                 {% set questionIndex = index %}
                 {% for index, answer in question.answers %}
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answer{{ questionIndex }}" id="answer{{ questionIndex }}" value="{{ answer.id }}" required>
+                        <input class="form-check-input" type="radio" name="answer{{ questionIndex }}" value="{{ answer.id }}" required>
                         <label class="form-check-label" for="answer{{ questionIndex }}">
-                            {{ index+1 }}. {{ answer.answer }}
+                            {{ answer.answer }}
                         </label>
                     </div>
                 {% endfor %}

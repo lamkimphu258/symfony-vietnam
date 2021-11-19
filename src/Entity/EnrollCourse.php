@@ -14,14 +14,14 @@ class EnrollCourse
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses", cascade={"persist"})
      * @ORM\JoinColumn(name="trainee_id", referencedColumnName="id")
      */
     private User $trainee;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="trainees")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="trainees", cascade={"persist"})
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private Course $course;
