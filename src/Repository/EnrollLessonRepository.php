@@ -37,6 +37,12 @@ class EnrollLessonRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function save(EnrollLesson $enrollLesson)
+    {
+        $this->getEntityManager()->persist($enrollLesson);
+        $this->getEntityManager()->flush();
+    }
+
     // /**
     //  * @return Lesson[] Returns an array of Lesson objects
     //  */

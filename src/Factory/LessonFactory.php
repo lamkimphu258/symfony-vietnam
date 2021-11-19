@@ -45,7 +45,7 @@ final class LessonFactory extends ModelFactory
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'title' => self::faker()->text(maxNbChars: 50),
-            'content' => self::faker()->text(maxNbChars: 1000),
+            'content' => self::faker()->text(maxNbChars: 5000),
             'status' => self::faker()->randomElement([LessonStatus::DRAFT, LessonStatus::PUBLISHED]),
         ];
     }

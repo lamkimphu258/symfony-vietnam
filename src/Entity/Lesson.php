@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LessonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
@@ -18,12 +20,12 @@ class Lesson
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
-    private $id;
+    private string $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true, nullable=false)
@@ -34,20 +36,35 @@ class Lesson
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private string $content;
 
     /**
      * @ORM\Column(type="string", length=255, columnDefinition="ENUM('draft', 'published')")
      */
-    private $status;
+    private string $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $course;
+    private Course $course;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="lesson")
+     */
+    private $questions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EnrollLesson", mappedBy="lesson")
+     */
+    private Collection $trainees;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -103,5 +120,35 @@ class Lesson
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getLesson() === $this) {
+                $question->setLesson(null);
+            }
+        }
+
+        return $this;
     }
 }
