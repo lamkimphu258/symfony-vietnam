@@ -14,7 +14,6 @@ class AdminSecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // TODO: check role is admin
          if ($this->getUser()) {
              return $this->redirectToRoute('admin_dashboard');
          }
